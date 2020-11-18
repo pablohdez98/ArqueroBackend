@@ -58,7 +58,7 @@ public class Empleado implements Serializable {
     }
 
     public String getApellido2() {
-        return apellido1;
+        return apellido2;
     }
 
     public void setApellido2(String apellido2) {
