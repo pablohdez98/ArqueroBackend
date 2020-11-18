@@ -24,7 +24,7 @@ public class EmpleadoService implements IEmpleadoService{
     public void saveEmpleado(Empleado empleado){
     }
 
-    public void updateEmpleado(Empleado empleado){
+    public void updateEmpleado(Long id, Empleado empleado){
 
     }
 

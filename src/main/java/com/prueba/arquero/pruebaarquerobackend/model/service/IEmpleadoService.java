@@ -9,7 +9,7 @@ public interface IEmpleadoService {
     public List<Empleado> getEmpleados();
     public Empleado getEmpleado(Long empleadoId);
     public void saveEmpleado(Empleado empleado);
-    public void updateEmpleado(Empleado empleado);
+    public void updateEmpleado(Long id, Empleado empleado);
     public void deleteEmpleado(Long empleadoId);
 
 }
