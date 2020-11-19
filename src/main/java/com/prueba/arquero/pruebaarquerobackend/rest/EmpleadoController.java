@@ -28,6 +28,7 @@ public class EmpleadoController {
     }
 
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:4200")
     public void getEmpleados(HttpServletResponse response) throws IOException {
         List<Empleado> empleados = empleadoService.getEmpleados();
         if (empleados != null) {
@@ -43,6 +44,7 @@ public class EmpleadoController {
     }
 
     @GetMapping(path = "{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public void getEmpleado(@PathVariable("id") long id, HttpServletResponse response) throws IOException{
         Empleado empleado = empleadoService.getEmpleado(id);
         if (empleado != null) {
@@ -58,6 +60,7 @@ public class EmpleadoController {
     }
 
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:4200")
     public void saveEmpleado(@Valid @NonNull @RequestBody Empleado empleado, HttpServletResponse response) throws IOException {
         if (empleadoService.saveEmpleado(empleado)) {
             response.setStatus(HttpServletResponse.SC_CREATED);
@@ -72,6 +75,7 @@ public class EmpleadoController {
     }
 
     @PutMapping(path = "{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public void updateEmpleado(@PathVariable("id") long id, @Valid @NonNull @RequestBody Empleado empleado, HttpServletResponse response)
             throws IOException {
         if (empleadoService.updateEmpleado(id, empleado)) {
@@ -86,6 +90,7 @@ public class EmpleadoController {
     }
 
     @DeleteMapping(path = "{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public void deleteEmpleado(@PathVariable("id") Long id, HttpServletResponse response) throws IOException {
         if (empleadoService.deleteEmpleado(id)) {
             PrintWriter out = response.getWriter();
