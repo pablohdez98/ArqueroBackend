@@ -1,12 +1,15 @@
 package com.prueba.arquero.pruebaarquerobackend.model.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import java.io.Serializable;
 
 @Entity
 @Table(name="empleados")
 public class Empleado implements Serializable {
-
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -14,20 +17,29 @@ public class Empleado implements Serializable {
     private Long id;
 
     @Column(name="nombre")
+    @NotBlank(message = "El campo 'nombre' es requerido")
+    @Size(min = 3, max = 25, message = "'nombre' debe tener entre 3 y 25 caracteres")
     private String nombre;
 
     @Column(name="apellido1")
+    @NotBlank(message = "El campo 'apellido1' es requerido")
+    @Size(min = 3, max = 25, message = "'apellido1' debe tener entre 3 y 25 caracteres")
     private String apellido1;
 
     @Column(name="apellido2")
+    @NotBlank(message = "El campo 'apellido2' es requerido")
+    @Size(min = 3, max = 25, message = "'apellido2' debe tener entre 3 y 25 caracteres")
     private String apellido2;
 
     @Column(name="dni")
+    @NotBlank(message = "El campo 'dni' es requerido")
+    @Pattern(regexp = "[0-9]{8}[A-Za-z]", message = "DNI incorrecto")
     private String dni;
 
     @Column(name="domicilio")
+    @NotBlank(message = "El campo 'domicilio' es requerido")
+    @Size(min = 3, max = 50, message = "'nombre' debe tener entre 3 y 50 caracteres")
     private String domicilio;
-
 
     public Empleado(){
 
@@ -79,5 +91,21 @@ public class Empleado implements Serializable {
 
     public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
+    }
+
+    public boolean verifyDNI() {
+
+        String alphabet = "TRWAGMYFPDXBNJZSQVHLCKE";
+        int resto = 0;
+        int num = Integer.parseInt(this.dni.substring(0, 8));
+        char letra = this.dni.charAt(8);
+
+        resto = num % 23;
+        char checkLetra = alphabet.charAt(resto);
+
+        if (Character.toUpperCase(letra) != checkLetra) {
+            return false;
+        }
+        return true;
     }
 }
