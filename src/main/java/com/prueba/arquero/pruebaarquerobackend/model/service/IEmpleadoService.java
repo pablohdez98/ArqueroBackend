@@ -8,8 +8,8 @@ public interface IEmpleadoService {
 
     public List<Empleado> getEmpleados();
     public Empleado getEmpleado(Long empleadoId);
-    public void saveEmpleado(Empleado empleado);
-    public void updateEmpleado(Long id, Empleado empleado);
-    public void deleteEmpleado(Long empleadoId);
+    public boolean saveEmpleado(Empleado empleado);
+    public boolean updateEmpleado(Long id, Empleado empleado);
+    public boolean deleteEmpleado(Long empleadoId);
 
 }

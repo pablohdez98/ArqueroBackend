@@ -17,7 +17,7 @@ public class EmpleadoService implements IEmpleadoService{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Empleado> getEmpleados(){
+    public List<Empleado> getEmpleados() {
         final String sql = "SELECT * FROM empleados";
         return jdbcTemplate.query(sql, (resultSet, i) -> {
             Long id = resultSet.getLong("id");
@@ -58,18 +58,20 @@ public class EmpleadoService implements IEmpleadoService{
         return empleado;
     }
 
-    public void saveEmpleado(Empleado empleado){
+    public boolean saveEmpleado(Empleado empleado) {
+        if (!empleado.verifyDNI()) return false;
+
         final String sql = "INSERT INTO empleados (nombre, apellido1, apellido2, dni, domicilio) VALUES (?,?,?,?,?)";
-        jdbcTemplate.update(sql, new Object[]{empleado.getNombre(), empleado.getApellido1(), empleado.getApellido2(), empleado.getDni(), empleado.getDomicilio()});
+        return jdbcTemplate.update(sql, new Object[]{empleado.getNombre(), empleado.getApellido1(), empleado.getApellido2(), empleado.getDni(), empleado.getDomicilio()}) == 1;
     }
 
-    public void updateEmpleado(Long id, Empleado empleado){
+    public boolean updateEmpleado(Long id, Empleado empleado){
         final String sql = "UPDATE empleados SET nombre=?, apellido1=?, apellido2=?, dni=?, domicilio=? WHERE id = ?";
-        jdbcTemplate.update(sql, new Object[]{empleado.getNombre(), empleado.getApellido1(), empleado.getApellido2(), empleado.getDni(), empleado.getDomicilio(), id});
+        return jdbcTemplate.update(sql, new Object[]{empleado.getNombre(), empleado.getApellido1(), empleado.getApellido2(), empleado.getDni(), empleado.getDomicilio(), id}) == 1;
     }
 
-    public void deleteEmpleado(Long id){
+    public boolean deleteEmpleado(Long id) {
         final String sql = "DELETE FROM empleados WHERE id = ?";
-        jdbcTemplate.update(sql, new Object[]{id});
+        return jdbcTemplate.update(sql, new Object[]{id}) == 1;
     }
 }
